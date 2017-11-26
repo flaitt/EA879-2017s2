@@ -63,13 +63,13 @@ void salvar_imagem(char *nome_do_arquivo, imagem *I) {
 
   printf("Salvando imagem %d por %d...\n", I->width, I->height);
   bitmapOut = FreeImage_Allocate(I->width, I->height, 24, 0, 0, 0);
-
+  printf("Salvo!\n");
    for (int i=0; i<I->width; i++) {
      for (int j=0; j<I->height; j++) {
       int idx;
 
       idx = i + (j*I->width);
-      color.rgbRed = I->r[idx];
+      color.rgbRed = I->r[idx]; 
       color.rgbGreen = I->g[idx];
       color.rgbBlue = I->b[idx];
 
@@ -80,3 +80,41 @@ void salvar_imagem(char *nome_do_arquivo, imagem *I) {
   FreeImage_Save(FIF_JPEG, bitmapOut, nome_do_arquivo, JPEG_DEFAULT);
 }
 
+void multiplicaBrilho(float brilho,imagem*I){
+    for (int i=0; i<I->width; i++) {
+     for (int j=0; j <I->height; j++) {
+      int idx;
+    
+
+      idx = i + (j*I->width);
+
+      I->r[idx] = I->r[idx] * brilho;
+      I->g[idx] = I->g[idx] * brilho;
+      I->b[idx] = I->b[idx] * brilho;
+      
+      if(I->r[idx]>255){ /*Nao pode ser maior que 255 o valor de um pixel*/
+        I->r[idx]=255;  
+      }
+      if(I->g[idx]>255){
+        I->g[idx]=255;  
+      }
+      if(I->b[idx]>255){
+        I->b[idx]=255;  
+      }
+    }
+   }
+}
+void divideBrilho(float brilho,imagem*I){
+    multiplicaBrilho((1/brilho),I);
+}
+
+void maiorPixel(imagem *I){
+    float max=0;
+    for(int i=0;i<I->width;i++){
+        for(int j=0;j<I->height;j++){
+            if(I->r[i + (j* I->width)]+I->g[i + (j* I->width)]+I->b[i + (j* I->width)]){
+                max = I->r[i + (j* I->width)]+I->g[i + (j* I->width)]+I->b[i + (j * I->width)];
+            }
+        }
+    }
+}
