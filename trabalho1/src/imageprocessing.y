@@ -50,7 +50,9 @@ EXPRESSAO:
     }
     
     | BRILHO{
+        printf("antes imagem\n");
         imagem I = abrir_imagem($1);
+        printf("antes imagem\n");
         maiorPixel(&I);
     }
     

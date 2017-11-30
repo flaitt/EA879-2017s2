@@ -51,10 +51,10 @@ void yyerror(char *);
         
         
 (\[[a-zA-Z0-9\.]+\])  {
-        for (int i = 1; i +1 < yyleng; i++ ){
-          yylval.strval[i] = yytext[i];
+        for (int i = 1; i < yyleng-1; i++ ){
+          yylval.strval[i-1] = yytext[i];
         }
-        yylval.strval[yyleng] = '\0';
+        yylval.strval[yyleng-1] = '\0';
         printf ("Achei nome aqui: %s\n", yylval.strval);
         return BRILHO;
        }

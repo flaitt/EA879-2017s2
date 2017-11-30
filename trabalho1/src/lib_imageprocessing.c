@@ -93,13 +93,16 @@ void multiplicaBrilho(float brilho,imagem*I){
       I->b[idx] = I->b[idx] * brilho;
       
       if(I->r[idx]>255){ /*Nao pode ser maior que 255 o valor de um pixel*/
-        I->r[idx]=255;  
+        I->r[idx]=255; 
+        /*printf("estouro red\n");*/
       }
       if(I->g[idx]>255){
-        I->g[idx]=255;  
+        I->g[idx]=255;
+        /*printf("estouro green\n");*/
       }
       if(I->b[idx]>255){
         I->b[idx]=255;  
+        /*printf("estouro blue\n");*/
       }
     }
    }
@@ -109,12 +112,16 @@ void divideBrilho(float brilho,imagem*I){
 }
 
 void maiorPixel(imagem *I){
-    float max=0;
-    for(int i=0;i<I->width;i++){
-        for(int j=0;j<I->height;j++){
-            if(I->r[i + (j* I->width)]+I->g[i + (j* I->width)]+I->b[i + (j* I->width)]){
-                max = I->r[i + (j* I->width)]+I->g[i + (j* I->width)]+I->b[i + (j * I->width)];
+    float max=0,rmax=0,gmax=0,bmax=0;
+    for(int i=0;i < I->width ; i++){
+        for(int j=0 ; j<I->height ; j++){
+            if(I->r[(i + (j* I->width))] + I->g[(i + (j* I->width))] + I->b[(i + (j* I->width))] > max){
+                max = I->r[(i + (j* I->width))]+ I->g[(i + (j* I->width))]+ I->b[(i + (j* I->width))];
+                rmax=I->r[(i + (j* I->width))];
+                gmax=I->g[(i + (j* I->width))];
+                bmax=I->b[(i + (j* I->width))];
             }
         }
     }
+    printf("O valor do maior pixel eh: %.2f\nrmax=%f \n gmax=%f\n bmax=%f \n",max,rmax,gmax,bmax);
 }
